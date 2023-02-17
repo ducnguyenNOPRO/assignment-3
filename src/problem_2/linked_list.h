@@ -34,9 +34,11 @@ public:
 
     // copy constructor
     LinkedList(const LinkedList<T> &other_list) : LinkedList() {
-        /*
-         * TODO: homework
-         */
+        ListNode<T> *currentRhs = other_list.head->next;
+        for (currentRhs; currentRhs != nullptr; currentRhs = currentRhs->next){
+            push_back(currentRhs->val);
+        }
+        num_of_element = other_list.num_of_element;
     }
 
     // destructor

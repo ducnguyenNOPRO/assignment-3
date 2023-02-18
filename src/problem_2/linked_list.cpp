@@ -15,14 +15,14 @@ void LinkedList<T>::push_front(const T &value) {
 
 template<class T>
 void LinkedList<T>::push_back(const T &value) {
+    ListNode<T> *newNode = new ListNode<T>(value);
     // Traverse to the end of the List
     // Set the last Node->next point to a new ListNode.
-    ListNode<T> *current = head, *next = current->next;
-    while (next != nullptr){
-        current = next;
-        next = current->next;
+    ListNode<T> *current = head;
+    while (current->next != nullptr){
+        current = current->next;
     }
-    current->next = new ListNode(value);
+    current->next = newNode;
     num_of_element++;
 }
 

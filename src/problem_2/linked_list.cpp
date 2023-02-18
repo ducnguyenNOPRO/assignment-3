@@ -114,22 +114,13 @@ void LinkedList<T>::merge(const List<T> &ot) {
     while (currentB != nullptr){
         current->next = new ListNode<T>(currentB->val);
         current = current->next;
-
         currentB = currentB->next;
     }
+    // Make current point to NULL
     current = current->next;
+
     // Delete the old List
-    ListNode<T> *p0 = head, *p1 = head->next;
-    if (p1 == nullptr) {
-        delete p0;
-        return;
-    }
-    while (p1 != nullptr) {
-        delete p0;
-        p0 = p1;
-        p1 = p1->next;
-    }
-    delete p0;
+    delete head;
 
     // Point the head of old List to the new List
     head = new ListNode<T>;

@@ -86,8 +86,9 @@ void LinkedList<T>::merge(const List<T> &ot) {
     auto &other_list = (LinkedList<T> &) ot;
 
     // Algorithm from https://codereview.stackexchange.com/questions/123346/merging-sorted-linked-lists-c
-    // Keep the head till the end
+    // Creating a new List
     ListNode<T> *dummy = new ListNode<T>();
+    // Use to decide which node will be the next node (ascending mode)
     ListNode<T> *current = dummy;
 
     ListNode<T> *currentA = head->next;  // First node this list
@@ -95,18 +96,47 @@ void LinkedList<T>::merge(const List<T> &ot) {
 
     while(currentA != nullptr && currentB != nullptr){
         if (currentA->val <= currentB->val){
-            current->next = currentA;
+            current->next = new ListNode<T>(currentA->val);
             currentA = currentA->next;
         }else{
-            current->next = currentB;
+            current->next = new ListNode<T>(currentB->val);
             currentB = currentB->next;
         }
         current = current->next;
     }
     // Check if there is remaining node in either list
-    current->next = currentA != nullptr ? currentA: currentB;
+    while (currentA != nullptr){
+        current->next = new ListNode<T>(currentA->val);
+        current = current->next;
+
+        currentA = currentA->next;
+    }
+    while (currentB != nullptr){
+        current->next = new ListNode<T>(currentB->val);
+        current = current->next;
+
+        currentB = currentB->next;
+    }
+    current = current->next;
+    // Delete the old List
+    ListNode<T> *p0 = head, *p1 = head->next;
+    if (p1 == nullptr) {
+        delete p0;
+        return;
+    }
+    while (p1 != nullptr) {
+        delete p0;
+        p0 = p1;
+        p1 = p1->next;
+    }
+    delete p0;
+
+    // Point the head of old List to the new List
+    head = new ListNode<T>;
     head->next = dummy->next;
     num_of_element += other_list.num_of_element;
+
+    dummy->next = nullptr;
     delete dummy;
 }
 

@@ -120,15 +120,16 @@ void LinkedList<T>::merge(const List<T> &ot) {
     current = current->next;
 
     // Delete the old List
-    delete head;
+    ListNode<T> *toDelete = head;
+    while(toDelete){
+        ListNode<T>* d = toDelete;
+        toDelete = toDelete->next;
+        delete d;
+    }
 
     // Point the head of old List to the new List
-    head = new ListNode<T>;
-    head->next = dummy->next;
+    head = dummy;
     num_of_element += other_list.num_of_element;
-
-    dummy->next = nullptr;
-    delete dummy;
 }
 
 template<class T>

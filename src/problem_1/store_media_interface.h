@@ -18,15 +18,13 @@ public:
     }
 
     virtual bool mercy_rule_apply() {
-        /*
-         * TODO: homework
-         */
+        // No fee if the id % 13 = 0
+        return inventory_id % 13 == 0;
     }
 
     bool operator==(const StoreMediaInterface &other_media) const {
-        /*
-         * TODO: homework
-         */
+        if (this->inventory_id == other_media.inventory_id)  // Check for id only
+            return true;
         return false;
     };
 
